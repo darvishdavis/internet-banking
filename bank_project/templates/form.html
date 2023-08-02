@@ -5,7 +5,7 @@
 <div class=" d-flex justify-content-center" >
 
 
-    <form class="py-5 " style="width:25rem;" action=" {% url 'bank_body:fill_form' %}" method="POST" enctype="multipart/form-data">
+    <form id="application_form" class="py-5 " style="width:25rem;" action=" {% url 'bank_body:fill_form' %}" method="POST" enctype="multipart/form-data" data-branch-url="{% url 'bank_body:ajax_load_branch' %}">
         {% csrf_token %}
 
         {% comment %}
@@ -124,23 +124,52 @@
         {% endcomment %}
 
 
-        {% for field in form %}
+        {% for i in form %}
             <div class="fieldWrapper">
+                {{ i.label_tag }} {{ i }}<br><br>
+                {{ i.errors }}
 
-                {{ field.label_tag }} {{ field }}<br><br>
-                {{ field.errors }}
-
-                {% if field.help_text %}
-                    <p class="help">{{ field.help_text|safe }}</p>
+                {% if i.help_text %}
+                    <p class="help">{{ i.help_text|safe }}</p>
                 {% endif %}
             </div>
         {% endfor %}
 
         <div class="my-3 d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary ">Submit</button>
+            <input type="submit" class="btn btn-primary " value="Submit" >
         </div>
 
     </form>
+
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+
+        $("#id_district").change(function () {
+            const url = $("#application_form").attr("data-branch-url");   // get the url of the `load_branches` view
+            const districtId = $(this).val();                      // get the selected country ID from the HTML input
+            $.ajax({                           // initialize an AJAX request
+                url: url,                     // set the url of the request (= /persons/ajax/load-cities/ )
+                data: {
+                    'district_id': districtId       // add the country id to the GET parameters
+                },
+                success: function (data) {         // `data` is the return of the `load_branches` view function
+                    $("#id_branch").html(data);    // replace the contents of the city input with the data that came from the server
+
+                     /*                                          // for arranging using javascript
+
+                    let html_data = '<option value="">---------</option>';
+                    data.forEach(function (branch) {
+                        html_data += `<option value="${branch.id}">${branch.name}</option>`
+                    });
+                    console.log(html_data);
+                    $("#id_branch").html(html_data);
+                    */
+                },
+            });
+
+        });
+    </script>
+
 
 </div>
 

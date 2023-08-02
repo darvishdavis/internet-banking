@@ -1,8 +1,12 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib import messages
 
-from .models import District, Branch, AccountType, AccountOpeningForm
 from .forms import AccountForm
+from .models import Branch
+
+
 # Create your views here.
 
 
@@ -18,7 +22,8 @@ def fill_form(request):
             print('correct')          # check whether it's valid:
             form.save(commit=False)
             form.save()
-
+            messages.success(request, 'Application Form Submitted Successfully !!!!')
+            return redirect('bank_body:success')
 
     else:
         form = AccountForm()
@@ -29,7 +34,17 @@ def fill_form(request):
     return render(request, "form.html", {"form": form})
 
 
+# AJAX
+def load_branches(request):
+    district_id = request.GET.get('district_id')
+    branches = Branch.objects.filter(district_id=district_id)
+    return render(request, "branches_dropdown_list_options.html", {'branches': branches})  # modifying the branches at server side
 
+    #return JsonResponse(list(branches.values('id', 'name')), safe=False)     # modifying the branches at client side (javascript)
+
+
+def success(request):
+    return render(request, 'success.html')
 
 
 
