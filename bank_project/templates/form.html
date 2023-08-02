@@ -1,0 +1,152 @@
+{% extends 'common.html' %}
+
+{% block content %}
+
+<div class=" d-flex justify-content-center" >
+
+
+    <form class="py-5 " style="width:25rem;" action=" {% url 'bank_body:fill_form' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% comment %}
+        <div class="form-group">
+    <!--        <label for="exampleInputUser Name">Name</label>-->
+            <input type="text" class="form-control" id="exampleInputName" name="name" placeholder="Name">
+        </div><br>
+
+        <div class="form-group">
+    <!--        <label for="exampleInputPassword1">date</label>-->
+            <input type="date" class="form-control" id="exampledate" name="date" placeholder="Date Of Birth">
+        </div><br>
+
+        <div class="form-group">
+    <!--        <label for="exampleInputConfirmPassword">age</label>-->
+            <input type="number" class="form-control" id="exampleInputage" name="age" placeholder="Age">
+        </div><br>
+        <div class="form-group">
+    <!--        <label for="exampleInputUser Name">Gender</label>-->
+            <input type="text" class="form-control" id="exampleInputGender" name="gender" placeholder="Gender">
+        </div><br>
+
+        <div class="form-group">
+    <!--        <label for="exampleInputPassword1">Phone Number</label>-->
+            <input type="tel" class="form-control" id="exampleInputphone" name="phone" placeholder="Phone Number">
+        </div><br>
+
+        <div class="form-group">
+    <!--        <label for="exampleInputConfirmPassword">E-mail</label>-->
+            <input type="email" class="form-control" id="exampleInputemail" name="e-mail" placeholder="E-mail">
+        </div><br>
+
+        <div class="form-group">
+    <!--        <label for="exampleInputUser Name">Address</label>-->
+            <input type="text" class="form-control" id="exampleInputAddress" name="address" placeholder="Address">
+        </div><br>
+
+
+
+        <script>
+                let data = [{
+            item: 'Ernakulam',
+            subitems: ['Aluva', 'Kanayannur', 'Kochi', 'Kothamangalam', 'Muvattupuzha']
+          },
+          {
+            item: 'Kannur',
+            subitems: ['Iritty', 'Payyannur', 'Taliparamba', 'Thalassery']
+          },
+          {
+            item: 'Kollam',
+            subitems: ['Karunagappally', 'Kottarakkara', 'Kunnathur', 'Pathanapuram', 'Punalur']
+          },
+          {
+            item: 'Thrissur',
+            subitems: ['Chalakkudy', 'Mukundapuram', 'Chavakkad', 'Kodungallur', 'Kunnamkulam'],
+          },
+          {
+            item: 'Trivandrum',
+            subitems: ['Chirayinkeezhu', 'Kattakada', 'Nedumangaadu', 'Neyyantinkara', 'Varkkala'],
+          },
+        ];
+
+
+        window.onload = function() {
+          var itemSel = document.getElementById("first");
+          var subitemSel = document.getElementById("second");
+
+          for (var x in data) {
+            itemSel.options[itemSel.options.length] = new Option(data[x].item, x);
+          }
+          itemSel.onchange = function() {
+            //empty
+            subitemSel.length = 1;
+            //display correct values
+            for (var y of data[this.value].subitems) {
+              subitemSel.options[subitemSel.options.length] = new Option(y, y);
+            }
+          }
+        }
+        </script>
+
+        <select id="first" name="first">
+            <option value="district" selected="selected"> District</option>
+        </select>
+        <br><br>
+
+        <select id="second" name="second">
+             <option value="branch" selected="selected"> Branch</option>
+        </select>
+        <br><br>
+
+        <select name="account_type" id="account_type" >
+            <option value="acc">Account_Type</option>
+            {% for i in account_type %}
+                <option value="{{i.name}}">{{i.name}}</option>
+            {% endfor %}
+        </select><br><br>
+
+
+
+        <label for="Materials" id="Materials">Materials Required</label>
+
+         <div class="form-group form-check ">
+            <input type="checkbox" class="form-check-input" id="debit" name="debit">
+            <label for="debit2" id="debit2"class="form-check-label" >debit</label>
+         </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="credit" name="credit" value="credit">
+            <label for="credit2" id="credit2"class="form-check-label" >credit</label>
+         </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="checkbook" name="chequebook">
+            <label for="cbook" id="cbook"class="form-check-label" >chequebook</label>
+         </div>
+
+        {% endcomment %}
+
+
+        {% for field in form %}
+            <div class="fieldWrapper">
+
+                {{ field.label_tag }} {{ field }}<br><br>
+                {{ field.errors }}
+
+                {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="my-3 d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary ">Submit</button>
+        </div>
+
+    </form>
+
+</div>
+
+<div class="my-2 d-flex justify-content-center">
+    <a href="{% url 'bank_security:logout' %}"  class="btn btn-danger "> Log Out </a>
+</div>
+
+
+{% endblock %}
