@@ -26,10 +26,19 @@ def register(request):
             messages.add_message(request, messages.ERROR, "password didn't match")
             print("password invalid")
 
+        elif not username:
+            messages.error(request, 'please enter a username')
+
+        elif not password:
+            messages.error(request, 'please enter a strong password')
+
+        elif not confirm_password:
+            messages.error(request, 'please retype password')
+
         else:
             user = User.objects.create_user(username=username, password=password)
             user.save()
-            messages.add_message(request, messages.SUCCESS, 'you are registerd !')
+            messages.add_message(request, messages.SUCCESS, 'you are registered !')
             return redirect('bank_security:login')
 
     return render(request, 'register.html')
@@ -45,7 +54,7 @@ def log_in(request):
         if user is not None:
             auth.login(request, user)
             messages.add_message(request, messages.SUCCESS, "welcome {}...".format(user_name))
-            return redirect('bank_security:home')
+            return redirect('bank_body:new')
 
         else:
             messages.add_message(request, messages.ERROR, "invalid username or password!")

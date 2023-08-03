@@ -51,11 +51,7 @@ def success(request):
 
 
 
-
-
-
-
-
+# for further use
 
 # def districts(request, name=None):
 #     district_ = District.objects.get(name=name)

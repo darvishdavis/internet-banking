@@ -49,7 +49,7 @@ class AccountOpeningForm(models.Model):
     gender = models.CharField(max_length=50)
     phone = models.IntegerField()
     mail_id = models.EmailField(max_length=20)
-    address = models.CharField(max_length=250)
+    address = models.TextField(max_length=250)
     district = models.ForeignKey(District, models.CASCADE)
     branch = models.ForeignKey(Branch, models.CASCADE)
     account_type = models.ForeignKey(AccountType, models.CASCADE)

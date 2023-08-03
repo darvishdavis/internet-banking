@@ -126,6 +126,11 @@
 
         {% for i in form %}
             <div class="fieldWrapper">
+
+                {% if i.label == 'Debit card' %}
+                    <h6>Materials required:</h6>
+                {% endif %}
+
                 {{ i.label_tag }} {{ i }}<br><br>
                 {{ i.errors }}
 
