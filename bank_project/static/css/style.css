@@ -1555,3 +1555,8 @@ section {
 min-width=100%;
 min-height=120px;
 }
+
+.errorlist
+    {
+        color: red;
+    }

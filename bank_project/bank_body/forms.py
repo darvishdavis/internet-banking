@@ -8,10 +8,13 @@ class DateInput(forms.DateInput):
 
 class AccountForm(forms.ModelForm):
 
+    CHOICES = [('Male', 'Male'),('Female', 'Female'),]
+    gender = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
     class Meta:
         model = AccountOpeningForm
         fields = ['name', 'date_of_birth', 'age', 'gender', 'phone', 'mail_id', 'address', 'district', 'branch',
-                  'account_type', 'debit_card', 'credit_card', 'chequebook']
+                  'account_type', 'materials_required']
         widgets = {'date_of_birth': DateInput(), }
 
     def __init__(self, *args, **kwargs):
@@ -24,6 +27,6 @@ class AccountForm(forms.ModelForm):
                 self.fields['branch'].queryset = Branch.objects.filter(district_id=district_id).order_by('name')
             except (ValueError, TypeError):
                 pass                      # invalid input from the client; ignore and fallback to empty Branch queryset
-        # elif self.instance.pk:
-        #     self.fields['branch'].queryset = self.instance.district.branch_set.order_by('name')
+        elif self.instance.pk:
+            self.fields['branch'].queryset = self.instance.district.branch_set.order_by('name')
 

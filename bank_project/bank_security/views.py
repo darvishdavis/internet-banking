@@ -2,17 +2,16 @@ from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-
-
 # Create your views here.
 
 
 def home(request):
-
-    return render(request, 'home.html')
+    user = None
+    return render(request, 'home.html', dict(user=user))
 
 
 def register(request):
+    user = None
     if request.method == 'POST':
         username = request.POST['user_name']
         password = request.POST['password']
@@ -41,10 +40,11 @@ def register(request):
             messages.add_message(request, messages.SUCCESS, 'you are registered !')
             return redirect('bank_security:login')
 
-    return render(request, 'register.html')
+    return render(request, 'register.html', dict(user=user))
 
 
 def log_in(request):
+    user = None
     if request.method == 'POST':
         user_name = request.POST['username']
         password = request.POST['password']
@@ -59,7 +59,7 @@ def log_in(request):
         else:
             messages.add_message(request, messages.ERROR, "invalid username or password!")
             return redirect('bank_security:login')
-    return render(request, 'login.html')
+    return render(request, 'login.html', dict(user=user))
 
 
 def log_out(request):

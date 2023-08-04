@@ -23,7 +23,11 @@ def fill_form(request):
             form.save(commit=False)
             form.save()
             messages.success(request, 'Application Form Submitted Successfully !!!!')
-            return redirect('bank_body:success')
+            form = AccountForm()
+            return render(request, "form.html", {"form": form})
+        else:
+            return render(request, "form.html", {"form": form})
+
 
     else:
         form = AccountForm()

@@ -1,0 +1,29 @@
+[33mcommit c7829abf8316ac8d9dcacd2f681b81fa045c4662[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31mbank/master[m[33m)[m
+Author: DARVISH <idarvishdavis@gmail.com>
+Date:   Thu Aug 3 09:06:33 2023 +0530
+
+    login and register connected
+
+[33mcommit 044dd4b96d15c9a530d2c3282bdf9779ccf8ce0d[m
+Author: DARVISH <idarvishdavis@gmail.com>
+Date:   Wed Aug 2 22:02:49 2023 +0530
+
+    dependent dropdown added to the form
+
+[33mcommit 3a20f0f343e82c6174a5717f8b47944c9ed3cef0[m
+Author: DARVISH <idarvishdavis@gmail.com>
+Date:   Wed Aug 2 11:46:04 2023 +0530
+
+    account opening form created
+
+[33mcommit c6280f35136aa942f4ad5ba832f77e62c2ef41e1[m
+Author: DARVISH <idarvishdavis@gmail.com>
+Date:   Mon Jul 31 16:35:35 2023 +0530
+
+    authentication 100%
+
+[33mcommit 4cc86607582ebcd4280ea69d40abb157ac59af6a[m
+Author: DARVISH <idarvishdavis@gmail.com>
+Date:   Mon Jul 31 13:09:01 2023 +0530
+
+    online finance website project started

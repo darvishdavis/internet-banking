@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+from multiselectfield import MultiSelectField
 
 # Create your models here.
 
@@ -42,6 +42,9 @@ class AccountType(models.Model):
         ordering = ["name"]
 
 
+materials = (('debitcard', 'Debit card'), ('creditcard', 'Credit card'), ('chequebook', 'Cheque book'),)
+
+
 class AccountOpeningForm(models.Model):
     name = models.CharField(max_length=50)
     date_of_birth = models.DateField()
@@ -53,9 +56,8 @@ class AccountOpeningForm(models.Model):
     district = models.ForeignKey(District, models.CASCADE)
     branch = models.ForeignKey(Branch, models.CASCADE)
     account_type = models.ForeignKey(AccountType, models.CASCADE)
-    debit_card = models.BooleanField(default=False)
-    credit_card = models.BooleanField(default=False)
-    chequebook = models.BooleanField(default=False)
+    materials_required = MultiSelectField(choices=materials, min_choices=1, max_choices=3, max_length=20, default='empty')
+
 
     def __str__(self):
         return '{}'.format(self.name)
